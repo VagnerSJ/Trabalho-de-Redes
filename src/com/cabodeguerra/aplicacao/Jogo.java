@@ -38,12 +38,11 @@ public class Jogo {
 
         System.out.println(">>>REGRAS<<<");
 
-        System.out.println("- O jogo possui dois parametros: forca e resistencia;");
-        System.out.println("- O jogador possui 10 pontos por rodada para alocar nos parametros;");
-        System.out.println("- Cada um dos parametros podem ter ate 10 pontos alocados;");
-        System.out.println("- Cada jogador possui 30 pontos no seu campo;");
-        System.out.println("- Vence o jogador que fizer o adiversario chegar na linha central (perder 30 pontos).");
-        System.out.println("\n");
+        System.out.println("- O jogo é baseado em forca;");
+        System.out.println("- Cada equipe pode alocar um numero entre 0 e 10 em forca;");
+        System.out.println("- Quando um numero eh usado, nao eh mais possivel utiliza-lo na partida atual;");
+        System.out.println("- Cada equipe possui 30 pontos de terreno;");
+        System.out.println("- Perde a equipe que pisar na linha central demarcada primeiro.\n\n");
 
         char opcao = 0;
         boolean querJogar = false;
