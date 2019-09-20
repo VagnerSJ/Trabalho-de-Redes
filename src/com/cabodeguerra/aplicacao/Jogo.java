@@ -82,10 +82,10 @@ public class Jogo {
         System.out.println("\n");
         
         while(!rodando){
-            System.out.print("Equipe 1: quanto deseja alocar em forca? ");
+            System.out.print("Equipe " + equipe1.getNome() + ": quanto deseja alocar em forca? ");
             forcaEquipe1 = sc.nextInt();
             
-            System.out.print("Equipe 2: quanto deseja alocar em forca? ");
+            System.out.print("Equipe " + equipe2.getNome() + ": quanto deseja alocar em forca? ");
             forcaEquipe2 = sc.nextInt();
 
             int vencedorRodada = calculoRodada(forcaEquipe1, forcaEquipe2);
@@ -108,9 +108,20 @@ public class Jogo {
             System.out.println("\n");
             
             if(campoEquipe1 <= 0 || campoEquipe2 <= 0){
-                //if()
                 rodando = true;
+                vencedor(campoEquipe1, campoEquipe2, equipe1, equipe2);
             }
+        }
+    }
+    
+    private static void vencedor(int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2){
+        if(campoEquipe2 <= 0){
+            System.out.println("Equipe " + equipe1.getNome() + " venceu, ganhando todo o terreno adversario!\n");
+            fimJogo();
+        }
+        else if(campoEquipe1 <= 0){
+            System.out.println("Equipe " + equipe2.getNome() + " venceu, ganhando todo o terreno adversario!\n");
+            fimJogo();
         }
     }
     
