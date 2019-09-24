@@ -1,19 +1,27 @@
 package com.cabodeguerra.aplicacao;
 
 import com.cabodeguerra.entidade.Equipe;
+import java.net.Socket;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Jogo {
     
+    Socket client;
+    
+    public Jogo(Socket client){
+        this.client = client;
+    }
+    
     public static void main(String args[]) {
 
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
+        
+        //char opcao = apresentacao();
+        apresentacao();
 
-        char opcao = apresentacao();
-
-        System.out.println("\n\n");
+        /*System.out.println("\n\n");
         if(opcao == 'y' || opcao == 'Y') {
             System.out.print("Digite o nome da Equipe 1: ");
             Equipe equipe1 = new Equipe(nomeEquipe());
@@ -23,10 +31,16 @@ public class Jogo {
         }
         else{
             fimJogo();
-        }
+        }*/
+        
+        System.out.print("Digite o nome da Equipe 1: ");
+        Equipe equipe1 = new Equipe(nomeEquipe());
+        System.out.print("Digite o nome da Equipe 2: ");
+        Equipe equipe2 = new Equipe(nomeEquipe());
+        partida(equipe1, equipe2);
     }
 
-    public static char apresentacao() {
+    public static void apresentacao() {
 
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
@@ -44,7 +58,7 @@ public class Jogo {
         System.out.println("- Cada equipe possui 30 pontos de terreno;");
         System.out.println("- Perde a equipe que pisar na linha central demarcada primeiro.\n\n");
 
-        char opcao = 0;
+        /*char opcao = 0;
         boolean querJogar = false;
         while(!querJogar) {	
             System.out.print("Deseja jogar (Y/N)? ");
@@ -59,8 +73,8 @@ public class Jogo {
             else {
                 System.out.println("Opcao invalida!\n");
             }
-        }
-        return opcao;
+        }*/
+        //return opcao;
     }
 
     private static void partida(Equipe equipe1, Equipe equipe2) {
@@ -216,5 +230,4 @@ public class Jogo {
         
         return sc.nextLine();
     }
-	
 }
