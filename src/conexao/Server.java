@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server {
+/*public class Server {
 
     public static void main(String[] args) throws IOException {
         // inicia o servidor
@@ -50,4 +50,43 @@ public class Server {
             cliente.println(msg);
         }
     }
+}*/
+
+/*public class Server {
+    public static void main(String[] args) throws IOException {
+        ServerSocket servidor = new ServerSocket(1234);
+        System.out.println("Servidor aberto!");
+
+        Socket cliente = servidor.accept();
+        System.out.println("Conexao com " +     
+            cliente.getInetAddress().getHostAddress() + " estabelecida!"
+        );
+
+        Scanner s = new Scanner(cliente.getInputStream());
+        while (s.hasNextLine()) {
+            System.out.println(s.nextLine());
+        }
+
+        s.close();
+        servidor.close();
+        cliente.close();
+    }
+}*/
+
+public class Server {
+	public static void main(String[] args) {
+		try {
+			ServerSocket server = new ServerSocket(1234);
+			System.out.println("Servidor em rede");
+			while (true) {
+				Socket client = server.accept();
+				Thread thread = new Thread(new AdvinhaPalavra(client));
+				thread.start();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }

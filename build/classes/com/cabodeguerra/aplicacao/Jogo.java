@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Jogo implements Runnable{
+public class Jogo {
     
     Locale.setDefault(Locale.US);
     Scanner sc = new Scanner(System.in);
@@ -15,15 +15,16 @@ public class Jogo implements Runnable{
     public Jogo(Socket client){
         this.client = client;
         apresentacao();
-        run(nomeEquipe(1), nomeEquipe(2));
+        
+        run();
     }
     
-    /*public void main(String args[]) {
+    public void main(String args[]) {
         
         //char opcao = apresentacao();
         apresentacao();
 
-        System.out.println("\n\n");
+        /*System.out.println("\n\n");
         if(opcao == 'y' || opcao == 'Y') {
             System.out.print("Digite o nome da Equipe 1: ");
             Equipe equipe1 = new Equipe(nomeEquipe());
@@ -33,14 +34,14 @@ public class Jogo implements Runnable{
         }
         else{
             fimJogo();
-        }
+        }*/
         
         System.out.print("Digite o nome da Equipe 1: ");
         Equipe equipe1 = new Equipe(nomeEquipe());
         System.out.print("Digite o nome da Equipe 2: ");
         Equipe equipe2 = new Equipe(nomeEquipe());
         partida(equipe1, equipe2);
-    }*/
+    }
 
     public void apresentacao() {
 
@@ -128,7 +129,7 @@ public class Jogo implements Runnable{
         }
     }
     
-    private void vencedor(int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2){
+    private static void vencedor(int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2){
         if(campoEquipe2 <= 0){
             System.out.println("Equipe " + equipe1.getNome() + " venceu, ganhando todo o terreno adversario!\n");
             fimJogo();
@@ -139,7 +140,7 @@ public class Jogo implements Runnable{
         }
     }
     
-    private int calculoRodada(int forcaEquipe1, int forcaEquipe2){
+    private static int calculoRodada(int forcaEquipe1, int forcaEquipe2){
         if(forcaEquipe1 > forcaEquipe2){
             return 1;
         }
@@ -150,11 +151,11 @@ public class Jogo implements Runnable{
         return 0;
     }
 
-    private void fimJogo() {
+    private static void fimJogo() {
         System.out.println("### Fim do jogo! ###\n");
     }
 
-    private void renderizarTela(String[] campo, String[] nomeEquipes, int demarcacao, int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2) {
+    private static void renderizarTela(String[] campo, String[] nomeEquipes, int demarcacao, int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2) {
         for(int i = 0; i < campo.length; i++) {
             if(i == demarcacao) {
                 campo[i] = "|";
@@ -225,9 +226,9 @@ public class Jogo implements Runnable{
         System.out.println("\n");
     }
     
-    public String nomeEquipe(int equipe){
+    public String nomeEquipe(){
         
-        System.out.print("Digite o nome da Equipe " + equipe + ": ");
+        
 
         return sc.nextLine();
     }

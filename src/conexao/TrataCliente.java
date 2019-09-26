@@ -1,4 +1,4 @@
-package conexao;
+/*package conexao;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -22,4 +22,4 @@ public class TrataCliente implements Runnable {
         }
         s.close();
     }
-}
+}*/

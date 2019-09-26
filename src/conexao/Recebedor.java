@@ -1,4 +1,4 @@
-package conexao;
+/*package conexao;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -18,4 +18,4 @@ public class Recebedor implements Runnable {
             System.out.println(s.nextLine());
         }
     }
-}
+}*/
