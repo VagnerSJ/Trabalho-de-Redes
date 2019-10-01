@@ -1,27 +1,18 @@
 package com.cabodeguerra.aplicacao;
 
 import com.cabodeguerra.entidade.Equipe;
-import java.net.Socket;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 
-public class Jogo implements Runnable{
+public class Jogo {
     
-    Locale.setDefault(Locale.US);
-    Scanner sc = new Scanner(System.in);
+    public static void main(String args[]) {
 
-    Socket client;
-    
-    public Jogo(Socket client){
-        this.client = client;
-        apresentacao();
-        run(nomeEquipe(1), nomeEquipe(2));
-    }
-    
-    /*public void main(String args[]) {
-        
-        //char opcao = apresentacao();
-        apresentacao();
+        Locale.setDefault(Locale.US);
+        Scanner sc = new Scanner(System.in);
+
+        char opcao = apresentacao();
 
         System.out.println("\n\n");
         if(opcao == 'y' || opcao == 'Y') {
@@ -34,15 +25,9 @@ public class Jogo implements Runnable{
         else{
             fimJogo();
         }
-        
-        System.out.print("Digite o nome da Equipe 1: ");
-        Equipe equipe1 = new Equipe(nomeEquipe());
-        System.out.print("Digite o nome da Equipe 2: ");
-        Equipe equipe2 = new Equipe(nomeEquipe());
-        partida(equipe1, equipe2);
-    }*/
+    }
 
-    public void apresentacao() {
+    public static char apresentacao() {
 
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
@@ -55,12 +40,12 @@ public class Jogo implements Runnable{
         System.out.println(">>>REGRAS<<<");
 
         System.out.println("- O jogo é baseado em forca;");
-        System.out.println("- Cada equipe pode alocar um numero entre 0 e 10 em forca;");
-        System.out.println("- Quando um numero eh usado, nao eh mais possivel utiliza-lo na partida atual;");
+        System.out.println("- Cada equipe pode alocar um numero entre 1 e 10 em forca;");
+        System.out.println("- Para conseguir a forca, roda-se um dado de 10 lados;");
         System.out.println("- Cada equipe possui 30 pontos de terreno;");
         System.out.println("- Perde a equipe que pisar na linha central demarcada primeiro.\n\n");
 
-        /*char opcao = 0;
+        char opcao = 0;
         boolean querJogar = false;
         while(!querJogar) {	
             System.out.print("Deseja jogar (Y/N)? ");
@@ -75,12 +60,13 @@ public class Jogo implements Runnable{
             else {
                 System.out.println("Opcao invalida!\n");
             }
-        }*/
-        //return opcao;
+        }
+        return opcao;
     }
-    
-    @Override
-    private void run(Equipe equipe1, Equipe equipe2) {
+
+    private static void partida(Equipe equipe1, Equipe equipe2) {
+        Locale.setDefault(Locale.US);
+        Scanner sc = new Scanner(System.in);
         
         int tamanho = 76;
         int demarcacao = (tamanho / 2);
@@ -96,11 +82,15 @@ public class Jogo implements Runnable{
         System.out.println("\n");
         
         while(!rodando){
-            System.out.print("Equipe " + equipe1.getNome() + ": quanto deseja alocar em forca? ");
-            forcaEquipe1 = sc.nextInt();
+            System.out.print("Equipe " + equipe1.getNome() + ", rode o dado D10 apertando qualquer tecla: ");
+            sc.nextLine();
+            forcaEquipe1 = dado() + 1;
+            System.out.println(">>" + forcaEquipe1 + "<<");
             
-            System.out.print("Equipe " + equipe2.getNome() + ": quanto deseja alocar em forca? ");
-            forcaEquipe2 = sc.nextInt();
+            System.out.print("Equipe " + equipe2.getNome() + ", rode o dado D10 apertando qualquer tecla: ");
+            sc.nextLine();
+            forcaEquipe2 = dado() + 1;
+            System.out.println(">>" + forcaEquipe2 + "<<");
 
             int vencedorRodada = calculoRodada(forcaEquipe1, forcaEquipe2);
             
@@ -128,7 +118,13 @@ public class Jogo implements Runnable{
         }
     }
     
-    private void vencedor(int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2){
+    private static int dado(){
+        Random dado = new Random();
+        
+        return dado.nextInt(9);
+    }
+    
+    private static void vencedor(int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2){
         if(campoEquipe2 <= 0){
             System.out.println("Equipe " + equipe1.getNome() + " venceu, ganhando todo o terreno adversario!\n");
             fimJogo();
@@ -139,7 +135,7 @@ public class Jogo implements Runnable{
         }
     }
     
-    private int calculoRodada(int forcaEquipe1, int forcaEquipe2){
+    private static int calculoRodada(int forcaEquipe1, int forcaEquipe2){
         if(forcaEquipe1 > forcaEquipe2){
             return 1;
         }
@@ -150,11 +146,11 @@ public class Jogo implements Runnable{
         return 0;
     }
 
-    private void fimJogo() {
+    private static void fimJogo() {
         System.out.println("### Fim do jogo! ###\n");
     }
 
-    private void renderizarTela(String[] campo, String[] nomeEquipes, int demarcacao, int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2) {
+    private static void renderizarTela(String[] campo, String[] nomeEquipes, int demarcacao, int campoEquipe1, int campoEquipe2, Equipe equipe1, Equipe equipe2) {
         for(int i = 0; i < campo.length; i++) {
             if(i == demarcacao) {
                 campo[i] = "|";
@@ -225,10 +221,11 @@ public class Jogo implements Runnable{
         System.out.println("\n");
     }
     
-    public String nomeEquipe(int equipe){
+    public static String nomeEquipe(){
+        Locale.setDefault(Locale.US);
+        Scanner sc = new Scanner(System.in);
         
-        System.out.print("Digite o nome da Equipe " + equipe + ": ");
-
         return sc.nextLine();
     }
+	
 }
